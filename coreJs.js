@@ -1,4 +1,68 @@
-chart = {
+/*
+const shapes = d3.select("#shapes");
+        
+        var margin = {top: 50, right: 50, bottom: 50, left: 50},
+            width = 600 - margin.left - margin.right,
+            height = 600 - margin.top - margin.bottom;
+
+        const graph = (
+            shapes.attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("class", "graph")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ") scale(5)  ")
+        );
+
+        var posX = [];
+        var posY = [];
+        var size = [];
+        for (var i = 0; i < 50; i++) {
+            let xRand = Math.random();
+            posX.push(Math.round(xRand * 100)); // tested: reaches 0-100 inclusive
+            posY.push(Math.round(Math.random() * 100));
+            size.push(Math.round(5 + xRand * 45));
+        }
+        console.log(`axis domains are as follows\nx: (${d3.min(posX)}, ${d3.max(posX)}) y: (${d3.min(posY)}, ${d3.max(posY)})`);
+
+        var x = d3.scale.linear()
+            .domain([d3.min(posX),d3.max(posX)])
+            .range([0, width]);
+
+        var y = d3.scale.linear()
+            .domain([d3.min(posY),d3.max(posY)])
+            .range([height, 0]);    
+
+        var xAxis = d3.svg.axis()
+            .ticks(10)
+            .scale(x);
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .ticks(10)
+            .orient("left");
+
+        for (var i = 0; i < 50; i++) {
+            graph.append("path")
+                  .attr("d", d3.svg.symbol().type(i < 25 ? "circle" : "triangle-up").size(size[i]))
+                  .attr("fill", "none")
+                  .attr("stroke", (size[i] > d3.mean(size) ? "blue" : "green"))
+                  .attr("transform", "translate("+posX[i]+","+posY[i]+")");
+        }
+
+        shapes.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
+            .call(xAxis);
+
+        shapes.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            .call(yAxis);
+*/
+
+// data = FileAttachment("graph.json").json();
+
+function buildProject() {
   // Specify the dimensions of the chart.
   const width = 928;
   const height = 680;
@@ -19,7 +83,7 @@ chart = {
       .force("y", d3.forceY());
 
   // Create the SVG container.
-  const svg = d3.create("svg")
+  const svg = d3.select("#shapes")
       .attr("width", width)
       .attr("height", height)
       .attr("viewBox", [-width / 2, -height / 2, width, height])
@@ -89,7 +153,9 @@ chart = {
   // When this cell is re-run, stop the previous simulation. (This doesn’t
   // really matter since the target alpha is zero and the simulation will
   // stop naturally, but it’s a good practice.)
-  invalidation.then(() => simulation.stop());
+  // invalidation.then(() => simulation.stop());
 
   return svg.node();
 }
+
+var chart = buildProject();
