@@ -38,13 +38,13 @@ function buildProject() {
     .selectAll("line")
     .data(links)
     .join("line")
-      .attr("stroke-width", d => Math.sqrt(d.value));
+      .attr("stroke-width", d => 1 + 5*d.value/d3.max(links, e => e.value));
 
     // tests on nodes; TODO: Remove when finished
-    // nodes.forEach((v, k, m) => {
-    //   console.log(`${(v.radius ?? 0)} `);
-    // });
-    // console.log(d3.max(nodes, e => e.radius));
+    links.forEach((v, k, m) => {
+      console.log(`${(v.value ?? 0)} `);
+    });
+    console.log(d3.max(links, e => e.value));
 
   const node = svg.append("g")
       .attr("stroke", "#fff")
@@ -53,11 +53,11 @@ function buildProject() {
     .data(nodes)
     .join("circle")
       // .attr("r", 5) // added more controls 
-      .attr("r", d => (5*(d.radius ?? 0)/d3.max(nodes, e => e.radius)) + 5) // scales radius size [5,15]
+      .attr("r", d => (8*(d.radius ?? 0)/d3.max(nodes, e => e.radius)) + 4) // scales radius size [4,12]
       .attr("fill", d => color(d.group));
 
   node.append("title")
-      .text(d => (d.name ?? d.id));
+      .text(d => (d.name ?? d.id) + ` (${d.radius} interactions, ${d.group})`);
 
   node.call(d3.drag()
         .on("start", dragstarted)

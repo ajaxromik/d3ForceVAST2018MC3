@@ -64,6 +64,28 @@ document.getElementById('uploadFiles').addEventListener('change', function(e) {
 });
 
 function convertCSVToNodeLink(csvData) {
+  const suspiciousNames = [
+    "Alex Hall",
+    "Lizbeth Jindra",
+    "Patrick Lane",
+    "Richard Fox",
+    "Sara Ballard",
+    "May Burton",
+    "Glen Grant",
+    "Dylan Ballard",
+    "Meryl Pastuch",
+    "Melita Scarpaci",
+    "Augusta Sharp",
+    "Kerstin Belveal",
+    "Rosalia Larroque",
+    "Lindsy Henion",
+    "Julie Tierno",
+    "Jose Ringwald",
+    "Ramiro Gault",
+    "Tobi Gatlin",
+    "Refugio Orrantia",
+    "Jenice Savaria"
+  ];
   const nodesMap = new Map();
   const linksMap = new Map();
   
@@ -79,39 +101,39 @@ function convertCSVToNodeLink(csvData) {
       nodesMap.set(sourceId, {
         id: sourceId,
         name: sourceName,
-        group: "Suspicious",
+        group: (suspiciousNames.includes(sourceName) ? "Suspicious" : "Normal"),
         radius: 1
       });
+    } else {
+      nodesMap.get(sourceId).radius++;
     }
     
-    // Add target node if not exists
     if (!nodesMap.has(targetId)) {
       nodesMap.set(targetId, {
         id: targetId,
         name: targetName,
-        group: "Suspicious",
+        group: (suspiciousNames.includes(targetName) ? "Suspicious" : "Normal"),
         radius: 1
       });
+    } else {
+      nodesMap.get(targetId).radius++;
     }
     
-    // Create link key (using sorted IDs to treat bidirectional links as same)
     let linkName = sourceName + targetName;
     if(sourceId > targetId)
       linkName = targetName + sourceName;
     
-    // Add or increment link
-    if (linksMap.has(linkName)) {
-      linksMap.get(linkName).value++;
-    } else {
+    if (!linksMap.has(linkName)) {
       linksMap.set(linkName, {
         source: sourceId,
         target: targetId,
         value: 1
       });
+    } else {
+      linksMap.get(linkName).value++;
     }
   });
   
-  // Convert maps to arrays
   return {
     nodes: Array.from(nodesMap.values()),
     links: Array.from(linksMap.values())
