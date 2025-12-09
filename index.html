@@ -4,6 +4,10 @@
         <meta charset="utf-8">
         <title>William Carr</title>
         <style type="text/css">
+            body {
+                font-family: sans-serif;
+            }
+            
             div.bar {
                 display: inline-block;
                 width: 20px;
@@ -20,16 +24,20 @@
             .file-input-container {
                 margin: 20px 0;
                 padding: 15px;
-                border: 2px dashed #ccc;
+                border: 2px solid #ccc;
                 border-radius: 5px;
                 background-color: #f9f9f9;
-                width: 50%;
+                width: 100%;
             }
             
             .file-input-container label {
                 display: block;
                 margin-bottom: 10px;
-                font-weight: bold;
+                font-size:x-large;
+            }
+
+            .file-input-container p {
+                margin: 10px 0 0 0;
             }
         </style>
         <script type="text/javascript" src="d3.v7.min.js"></script>
@@ -40,13 +48,8 @@
         </div>
         <div class="input-bar">
             <div class="file-input-container">
-                <label for="jsonFiles">Load JSON Data Files:</label>
-                <input type="file" id="jsonFiles" accept=".json" multiple>
-                <p id="fileStatus" style="margin-top: 10px; color: #666;"></p>
-            </div>
-            <div class="file-input-container">
-                <label for="csvFiles">Load CSV Data Files:</label>
-                <input type="file" id="csvFiles" accept=".csv" multiple>
+                <label for="uploadFiles">Load CSV or JSON Data Files:</label>
+                <input type="file" id="uploadFiles" accept=".json,.csv" multiple>
                 <p id="fileStatus" style="margin-top: 10px; color: #666;"></p>
             </div>
         </div>

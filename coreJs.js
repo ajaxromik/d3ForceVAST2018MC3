@@ -53,13 +53,12 @@ function buildProject() {
     .data(nodes)
     .join("circle")
       // .attr("r", 5) // added more controls 
-      .attr("r", d => (10*(d.radius ?? 0)/d3.max(nodes, e => e.radius)) + 5) // scales radius size [5,15]
+      .attr("r", d => (5*(d.radius ?? 0)/d3.max(nodes, e => e.radius)) + 5) // scales radius size [5,15]
       .attr("fill", d => color(d.group));
 
   node.append("title")
-      .text(d => d.id);
+      .text(d => (d.name ?? d.id));
 
-  // Add a drag behavior.
   node.call(d3.drag()
         .on("start", dragstarted)
         .on("drag", dragged)
@@ -67,14 +66,12 @@ function buildProject() {
   
   // Set the position attributes of links and nodes each time the simulation ticks.
   simulation.on("tick", () => {
-    link
-        .attr("x1", d => d.source.x)
+    link.attr("x1", d => d.source.x)
         .attr("y1", d => d.source.y)
         .attr("x2", d => d.target.x)
         .attr("y2", d => d.target.y);
 
-    node
-        .attr("cx", d => d.x)
+    node.attr("cx", d => d.x)
         .attr("cy", d => d.y);
   });
 
@@ -99,16 +96,8 @@ function buildProject() {
     event.subject.fy = null;
   }
 
-  // When this cell is re-run, stop the previous simulation. (This doesn’t
-  // really matter since the target alpha is zero and the simulation will
-  // stop naturally, but it’s a good practice.)
-  // invalidation.then(() => simulation.stop());
-
   return svg.node();
 }
-
-// var chart = buildProject();
-
 
 /*
 const shapes = d3.select("#shapes");
