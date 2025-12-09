@@ -7,7 +7,7 @@
             body {
                 font-family: sans-serif;
             }
-            
+
             div.bar {
                 display: inline-block;
                 width: 20px;
@@ -21,7 +21,7 @@
                 gap: 10px;
             }
             
-            .file-input-container {
+            .file-input-container, .slider-container {
                 margin: 20px 0;
                 padding: 15px;
                 border: 2px solid #ccc;
@@ -39,18 +39,29 @@
             .file-input-container p {
                 margin: 10px 0 0 0;
             }
+            
+            .slider-container h3 {
+                margin-top: 0;
+            }
         </style>
         <script type="text/javascript" src="d3.v7.min.js"></script>
     </head>
     <body>
         <div>
-            <h1 style="margin: 0;">William Carr</h1>
+            <h1 style="margin: 0;">Group: William, Ashley, Elisha</h1>
         </div>
         <div class="input-bar">
             <div class="file-input-container">
                 <label for="uploadFiles">Load CSV or JSON Data Files:</label>
                 <input type="file" id="uploadFiles" accept=".json,.csv" multiple>
                 <p id="fileStatus" style="margin-top: 10px; color: #666;"></p>
+            </div>
+        </div>
+
+        <div class="input-bar">
+            <div class="slider-container">
+                <div>Timeline</div>
+                <svg id="timeSlider" height="80px"></svg>
             </div>
         </div>
         
