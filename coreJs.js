@@ -40,13 +40,20 @@ function buildProject() {
     .join("line")
       .attr("stroke-width", d => Math.sqrt(d.value));
 
+    // tests on nodes; TODO: Remove when finished
+    // nodes.forEach((v, k, m) => {
+    //   console.log(`${(v.radius ?? 0)} `);
+    // });
+    // console.log(d3.max(nodes, e => e.radius));
+
   const node = svg.append("g")
       .attr("stroke", "#fff")
       .attr("stroke-width", 1.5)
     .selectAll("circle")
     .data(nodes)
     .join("circle")
-      .attr("r", 5)
+      // .attr("r", 5) // added more controls 
+      .attr("r", d => (10*(d.radius ?? 0)/d3.max(nodes, e => e.radius)) + 5) // scales radius size [5,15]
       .attr("fill", d => color(d.group));
 
   node.append("title")
