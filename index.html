@@ -8,20 +8,11 @@
                 font-family: sans-serif;
             }
 
-            div.bar {
-                display: inline-block;
-                width: 20px;
-                height: 75px;	/* Gets overriden by D3-assigned height below */
-                margin-right: 2px;
-                background-color: teal;
-            }
-
-            .input-bar {
+            .flex {
                 display: flex;
-                gap: 10px;
             }
             
-            .file-input-container, .slider-container {
+            .fileInput, .slider {
                 margin: 20px 0;
                 padding: 15px;
                 border: 2px solid #ccc;
@@ -30,17 +21,17 @@
                 width: 100%;
             }
             
-            .file-input-container label {
+            .fileInput label {
                 display: block;
                 margin-bottom: 10px;
                 font-size:x-large;
             }
 
-            .file-input-container p {
+            .fileInput p {
                 margin: 10px 0 0 0;
             }
             
-            .slider-container h3 {
+            .slider h3 {
                 margin-top: 0;
             }
         </style>
@@ -50,16 +41,16 @@
         <div>
             <h1 style="margin: 0;">Group: William, Ashley, Elisha</h1>
         </div>
-        <div class="input-bar">
-            <div class="file-input-container">
+        <div class="flex">
+            <div class="fileInput">
                 <label for="uploadFiles">Load CSV or JSON Data Files:</label>
                 <input type="file" id="uploadFiles" accept=".json,.csv" multiple>
                 <p id="fileStatus" style="margin-top: 10px; color: #666;"></p>
             </div>
         </div>
 
-        <div class="input-bar">
-            <div class="slider-container">
+        <div class="flex">
+            <div class="slider">
                 <div>Timeline</div>
                 <svg id="timeSlider" height="80px"></svg>
             </div>

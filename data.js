@@ -218,7 +218,6 @@ function buildTimeSlider(csvData) {
     .style("cursor", "ew-resize")
     .call(d3.drag()
       .on("drag", function(event) {
-        console.log(5);
         const newX = Math.max(0, Math.min(+endHandle.attr("cx"), event.x));
         d3.select(this).attr("cx", newX);
         updateSelection();
@@ -240,7 +239,7 @@ function buildTimeSlider(csvData) {
       })
     );
   
-  function updateSelection() {
+  let updateSelection = () => {
     const startX = +startHandle.attr("cx");
     const endX = +endHandle.attr("cx");
     
@@ -256,21 +255,21 @@ function buildTimeSlider(csvData) {
     const endSeconds = (endDate - baseDate) / 1000;
     
     filterDataByTimeRange(startSeconds, endSeconds);
-  }
+  };
 }
 
 function filterDataByTimeRange(startSeconds, endSeconds) {
   if (!fullData) return;
   
-  const filteredLinks = fullData.links.filter(link => {
-    return link.timestamps.some(t => t >= startSeconds && t <= endSeconds);
-  }).map(link => {
-    const validTimestamps = link.timestamps.filter(t => t >= startSeconds && t <= endSeconds);
-    return {
-      ...link,
-      value: validTimestamps.length
-    };
-  });
+  const filteredLinks = fullData.links
+    .filter(link => link.timestamps.some(t => t >= startSeconds && t <= endSeconds))
+    .map(link => {
+      const validTimestamps = link.timestamps.filter(t => t >= startSeconds && t <= endSeconds);
+      return {
+        ...link,
+        value: validTimestamps.length
+      };
+    });
   
   const activeNodeIds = new Set();
   filteredLinks.forEach(link => {
@@ -278,7 +277,6 @@ function filterDataByTimeRange(startSeconds, endSeconds) {
     activeNodeIds.add(link.target);
   });
   
-  // Filter nodes to only include those with links
   const filteredNodes = fullData.nodes.filter(node => activeNodeIds.has(node.id));
   
   data = {
