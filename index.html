@@ -5,7 +5,7 @@
         <title>2018 MC3 Network Analysis</title>
         <style type="text/css">
             body {
-                font -family: sans-serif;
+                font-family: sans-serif;
             }
 
             .flex {
@@ -51,6 +51,16 @@
 
         <div class="flex">
             <div class="slider">
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 15px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label for="daysRange">Days Before/After:</label>
+                        <input type="number" id="daysRange" value="7" min="0" step="1" style="width: 80px; padding: 5px;">
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label for="dualRangeToggle">Dual Range Control:</label>
+                        <input type="checkbox" id="dualRangeToggle" style="width: 20px; height: 20px;">
+                    </div>
+                </div>
                 <div>Timeline</div>
                 <svg id="timeSlider" height="80px"></svg>
             </div>
